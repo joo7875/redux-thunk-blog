@@ -42,18 +42,18 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
 // Action creators must return plain JS objects with a type property - we are not!
 // By the time our action gets to a reducer, we won't have fetched our data!
 
-export const fetchPosts = () => async (dispatch, getState) => { // simply added return function(){}
-    // dispatch: change data
-    // getState: read or access to data we want
-        const response = await jsonPlaceholder.get('/posts');
+export const fetchPosts = () => async dispatch => { // simply added return function(){}
+// dispatch: change data
+// getState: read or access to data we want
+    const response = await jsonPlaceholder.get('/posts');
 
-        // return {
-        //     type: 'FETCH_POSTS',
-        //     payload: response
-        // }
+    // return {
+    //     type: 'FETCH_POSTS',
+    //     payload: response
+    // }
 
-        dispatch({ type: 'FETCH_POSTS', payload: response.data })
-    }
+    dispatch({ type: 'FETCH_POSTS', payload: response.data });
+}
 
 // if return action is "function",
 // Function invoked with 'dispatch'

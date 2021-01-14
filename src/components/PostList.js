@@ -37,6 +37,9 @@ class PostList extends React.Component {
 
 // Everytime reducers run, mapStateToProps runs
 const mapStateToProps = (state) => {
+    console.log('mapStateToProps:');
+    console.log(state);
+    
     return { posts: state.posts };
 };
 
