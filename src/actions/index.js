@@ -1,6 +1,31 @@
 import jsonPlaceholder from '../apis/jsonPlaceholder';
 import _ from 'lodash';
 
+export const fetchPostsAndUsers = () => async (dispatch, getState) => {
+    console.log('About to fetch posts');
+    await dispatch(fetchPosts()); // made delay
+    // call Action Creator fetchPosts() and run this inner function
+    // react-thunk will run it and dispatch
+
+    console.log('fetched posts!');;
+    // console.log(getState().posts);
+
+
+
+    // const userIds = _.uniq(_.map(getState().posts, 'userId')); // get unique userId
+    // console.log(userIds);
+
+    // userIds.forEach(id => dispatch(fetchUser(id)));
+
+
+
+    _.chain(getState().posts)
+    .map('userId')
+    .uniq()
+    .forEach(id => dispatch(fetchUser(id)))
+    .value() // execute
+};
+
 // export const fetchPosts = async () => {
 //     const response = await jsonPlaceholder.get('/posts');
 
@@ -38,7 +63,7 @@ export const fetchPosts = () => async (dispatch, getState) => { // simply added 
 
 
 
-export const fetchUser = (id) => dispatch => async dispatch => {
+export const fetchUser = id => async dispatch => {
     const response = await jsonPlaceholder.get(`/users/${id}`);
 
     dispatch({ type: 'FETCH_USER', payload: response.data });
