@@ -1,4 +1,5 @@
 import jsonPlaceholder from '../apis/jsonPlaceholder';
+import _ from 'lodash';
 
 // export const fetchPosts = async () => {
 //     const response = await jsonPlaceholder.get('/posts');
@@ -26,7 +27,7 @@ export const fetchPosts = () => async (dispatch, getState) => { // simply added 
         //     payload: response
         // }
 
-        dispatch({ type: 'FETCH_POSTS', payload: response })
+        dispatch({ type: 'FETCH_POSTS', payload: response.data })
     }
 
 // if return action is "function",
@@ -34,3 +35,37 @@ export const fetchPosts = () => async (dispatch, getState) => { // simply added 
 // We wait for our request to finish
 // Request complete, dispatch action manually => call dispatch function manually in action
 // New action (plain JS or func)
+
+
+
+export const fetchUser = (id) => dispatch => async dispatch => {
+    const response = await jsonPlaceholder.get(`/users/${id}`);
+
+    dispatch({ type: 'FETCH_USER', payload: response.data });
+};
+
+
+
+
+// export const fetchUser = (id) => dispatch => _fetchUser(id, dispatch);
+
+// // _function means private func
+// // memoize helps not repeat the api calls
+// const _fetchUser = _.memoize(async (id, dispatch) => {
+//     const response = await jsonPlaceholder.get(`/users/${id}`);
+
+//     dispatch({ type: 'FETCH_USER', payload: response.data });
+// });
+
+
+
+
+
+// export const fetchUser = function(id) {
+
+//     return _.memoize(async function(dispatch) {
+//         const response = await jsonPlaceholder.get(`/users/${id}`);
+
+//         dispatch({ type: 'FETCH_USER', payload: response.data });
+//     });
+// };
